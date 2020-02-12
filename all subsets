@@ -1,0 +1,18 @@
+void fun(int i,vector<int> &nums,vector<int> &ve,vector<vector<int> >&vc)
+    {
+        if(i==nums.size())
+        {
+            vc.push_back(ve);
+            return ;
+        }
+        fun(i+1,nums,ve,vc);
+        ve.push_back(nums[i]);
+        fun(i+1,nums,ve,vc);
+        ve.pop_back();
+    }
+    vector<vector<int>> subsets(vector<int>& nums) {
+        vector<vector<int>> vc;
+        vector<int> ve;
+        fun(0,nums,ve,vc);
+        return vc;
+    }
