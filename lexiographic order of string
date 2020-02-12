@@ -1,0 +1,25 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+void fun(int i,string &chars,string &ans,vector<string> &ret)
+{
+    if(i==chars.size())
+    {   ret.push_back(ans); return;}
+    ret.push_back(ans);
+    for(;i<chars.size();i++)
+    {
+        ans.push_back(chars[i]);
+        fun(i+1,chars,ans,ret);
+        ans.pop_back();
+    }
+}
+int main() {
+	string chars="abc";
+	//sort(chars.begin(),chars.end());
+	vector<string> ret;
+	string ans;
+	fun(0,chars,ans,ret);
+	for(auto it:ret)
+	    cout<<it<<endl;
+	return 0;
+}
