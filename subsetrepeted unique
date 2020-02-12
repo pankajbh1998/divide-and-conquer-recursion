@@ -1,0 +1,30 @@
+void fun(int i,vector<int> &nums,vector<int> &fre,vector<int> ve,vector<vector<int> >&vc)
+    {
+        if(i==nums.size())
+        {
+            vc.push_back(ve);
+            return ;
+        }
+        for(int j=0;j<=fre[i];j++)
+        {
+            if(j)
+                ve.push_back(nums[i]);
+            fun(i+1,nums,fre,ve,vc);  
+        }
+    }
+    vector<vector<int>> subsetsWithDup(vector<int>& nums) {
+        vector<vector<int>> vc;
+        vector<int> ve,gv,fre;
+        map<int,int>mp;
+        for(auto it:nums)
+        {
+            mp[it]++;
+        }
+        for(auto it:mp)
+        {
+            gv.push_back(it.first);
+            fre.push_back(it.second);
+        }
+        fun(0,gv,fre,ve,vc);
+        return vc;
+    }
