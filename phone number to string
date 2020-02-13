@@ -1,0 +1,19 @@
+void fun(string digits,int i,vector<string> &pemu,string &st,vector<string> &ans)
+    {
+        if(i==digits.size())
+            {    ans.push_back(st);return;}
+        for(auto it:pemu[digits[i]-'0'])
+        {
+            st.push_back(it);
+            fun(digits,i+1,pemu,st,ans);
+            st.pop_back();
+        }
+    }
+    vector<string> letterCombinations(string digits) {            
+        vector<string> premu={"0","1","abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"},ans;
+        if(digits.size()==0)
+            return ans;
+        string st;
+        fun(digits,0,premu,st,ans);
+        return ans;
+    }
