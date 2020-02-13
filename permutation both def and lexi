@@ -1,0 +1,74 @@
+#include <bits/stdc++.h>
+using namespace std;
+void right_rotation(int i,int j,vector<int> &vc)
+{
+    if(i==j)
+        return ;
+    int key=vc[j];
+    for(int k=j;k>i;k--)
+    {
+        vc[k]=vc[k-1];
+    }
+    vc[i]=key;
+}
+void left_rotation(int i,int j,vector<int> &vc)
+{
+    if(i==j)
+        return ;
+    int key=vc[i];
+    for(int k=i+1;k<=j;k++)
+    {
+        vc[k-1]=vc[k];
+    }
+    vc[j]=key;
+}
+void permutaion_lexio(vector<int> &vc,int i,vector<vector<int> > &ans)
+{
+    if(i==vc.size())
+    {
+        ans.push_back(vc);
+        return;
+    }
+    for(int j=i;j<vc.size();j++)
+    {
+        right_rotation(i,j,vc);
+        permutaion_lexio(vc,i+1,ans);
+        left_rotation(i,j,vc);
+    }
+}
+void permutaion_default(vector<int> &vc,int i,vector<vector<int> > &ans)
+{
+    if(i==vc.size())
+    {
+        ans.push_back(vc);
+        return;
+    }
+    for(int j=i;j<vc.size();j++)
+    {
+        swap(vc[i],vc[j]);
+        permutaion_default(vc,i+1,ans);
+        swap(vc[i],vc[j]);
+    }
+}
+int main() {
+	vector<int> vc={1,2,3,4};
+	vector<vector<int> > ans;
+	permutaion_default(vc,0,ans);
+	cout<<"default\n";
+	for(int i=0;i<ans.size();i++)
+	{
+	    for(auto it:ans[i])
+	        cout<<it<<" ";
+	    cout<<endl;
+	}
+	ans.clear();
+	cout<<"lexio\n";
+	permutaion_lexio(vc,0,ans);
+	for(int i=0;i<ans.size();i++)
+	{
+	    for(auto it:ans[i])
+	        cout<<it<<" ";
+	    cout<<endl;
+	}
+	return 0;
+}
