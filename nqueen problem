@@ -1,0 +1,52 @@
+
+    void fun2(vector<vector<bool>> &vis,int i,int j,int val,int n)
+    {
+        vis[i][j]=val;
+        for(int k=0;k<n;k++)
+        {
+            vis[i][k]=val;
+            vis[k][j]=val;
+            if(i+k<n&&j+k<n)
+                vis[i+k][j+k]=val;
+            if(i+k<n&&j-k>=0)
+                vis[i+k][j-k]=val;
+            if(i-k>=0&&j+k<n)
+                vis[i-k][j+k]=val;
+            if(i-k>=0&&j-k>=0)
+                vis[i-k][j-k]=val;
+        }
+    }
+    void fun(int n,int i,vector<vector<string>> &board,vector<string> &ans,vector<vector<bool>> &vis)
+    {
+        if(n==i)
+        {
+            board.push_back(ans);
+            return;
+        }
+        string an;
+        for(int j=0;j<n;j++)
+            an+='.';
+        vector<vector<bool> > visi;
+        visi=vis;
+        for(int j=0;j<n;j++)
+        {
+            if(vis[i][j]==0)
+            {
+                fun2(visi,i,j,1,n);
+                an[j]='Q';
+                ans.push_back(an);
+                fun(n,i+1,board,ans,visi);
+                an[j]='.';
+                ans.pop_back();
+                visi=vis;
+            }
+        }
+    }
+    vector<vector<string>> solveNQueens(int n) {
+        vector<vector<string>> board;
+        vector<string> ans;
+        vector<bool> dd(n,0);
+        vector<vector<bool>> vis(n,dd);
+        fun(n,0,board,ans,vis);
+        return board;
+    }
