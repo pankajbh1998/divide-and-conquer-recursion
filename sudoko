@@ -1,0 +1,64 @@
+
+    void chk(int i,int j,vector<vector<char>>& ar,set<char> &st)
+    {
+        int ii=(i/3)*3;
+        int jj=(j/3)*3;
+        vector<int> arr(10);
+        for(int k=0;k<9;k++)
+        {
+            if(ar[i][k]=='.')
+                continue;
+            arr[ar[i][k]-'0']++;
+        }
+        for(int k=0;k<9;k++)
+        {
+            if(ar[k][j]=='.')
+                continue;
+            arr[ar[k][j]-'0']++;
+        }
+        for(int k=ii;k<ii+3;k++)
+        {
+            for(int kk=jj;kk<jj+3;kk++)
+            {
+                //cout<<ar[k][kk]<<" ";
+                if(ar[k][kk]=='.')
+                    continue;
+                arr[ar[k][kk]-'0']++;
+            }
+            //cout<<endl;
+        }
+        for(int i=1;i<10;i++)
+        {
+            if(arr[i]==0)
+                st.insert((char)('0'+i));
+        }
+    }
+    bool fun(int i,int j,vector<vector<char>>& board)
+    {
+        if(j==9)
+        {j=0;i++;}
+        if(i==9)
+            return 1;
+        if(board[i][j]!='.')
+        {
+            return(fun(i,j+1,board));
+        }
+        set<char> st;
+        chk(i,j,board,st);
+        if(st.size()==0)
+        {
+            return 0;
+        }
+        for(auto it:st)
+        {
+            //cout<<i<<" "<<j<<endl;
+            board[i][j]=it;
+            if(fun(i,j+1,board))
+                return 1;
+        }
+        board[i][j]='.';
+        return 0;
+    }
+    void solveSudoku(vector<vector<char>>& board) {
+        fun(0,0,board);
+    }
