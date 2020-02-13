@@ -1,0 +1,17 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int find_max(int i,int j,vector<int> vc)
+{
+    if(i>j)
+        return 0;
+    if(i==j)
+        return vc[i];
+    int mid=i+(j-i)/2;
+    return ( max(find_max(i,mid,vc),find_max(mid+1,j,vc)));
+}
+int main() {
+	vector<int>vc={7,1,4,3,2,6,5};
+	cout<<find_max(0,vc.size()-1,vc);
+	return 0;
+}
